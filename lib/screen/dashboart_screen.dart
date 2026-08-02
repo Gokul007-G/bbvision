@@ -1,3 +1,5 @@
+import 'package:bbvision/screen/project/project_assignment_screen.dart';
+import 'package:bbvision/screen/project/view_projects.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:bbvision/controller/login_controller.dart';
@@ -125,6 +127,12 @@ class DashboardScreen extends StatelessWidget {
                   title: "Payslip View",
                   color: AppColors.blue,
                   onTap: () => Get.to(() => PayslipScreen()),
+                ),
+                _actionCard(
+                  icon: Icons.assignment_ind,
+                  title: "Project Assignment",
+                  color: AppColors.appBar,
+                  onTap: () => Get.to(() => ViewProjects()),
                 ),
               ],
             ),

@@ -9,6 +9,7 @@ class CustomTextField extends StatelessWidget {
   final bool obscureText;
   final bool readOnly;
   final int maxline;
+  final String? hintText;
   final String? Function(String?)? validator;
   final String? Function(String?)? onChange;
   final VoidCallback? onTap;
@@ -23,6 +24,7 @@ class CustomTextField extends StatelessWidget {
     this.obscureText = false,
     this.readOnly = false,
     this.maxline = 1,
+    this.hintText,
     this.validator,
     this.onChange,
     this.onTap,
@@ -39,12 +41,14 @@ class CustomTextField extends StatelessWidget {
         validator: validator,
         onTap: onTap,
         readOnly: readOnly,
+        
         maxLines: maxline,
         onChanged: onChange,
         decoration: InputDecoration(
           prefixIcon: Icon(prefixIcon),
           labelText: label,
           suffixIcon: surfixIcon,
+          hintText: hintText,
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
         ),
       ),

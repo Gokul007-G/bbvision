@@ -1,0 +1,153 @@
+21-07-2026
+9-10Am : explore the new app features.
+10-11Am : new skills update.
+11-12Am : app to find the bugs.
+12-1Pm: update new thinks in app.
+1-2Pm: Lunch break.
+2-3Pm: Meeting with surya.
+3-4Pm : finding the bugs in web site in bbvision.
+4-5Pm : fixing the bugs in web site in bbvision.
+5-6Pm : upgrade the features.
+
+22-07-2026
+9-10Am : New Skill Update.
+10-11Am : New Skill Update.
+11-12Am : Analysis the DB.
+12-1Pm: Analysis the DB.
+1-2Pm: Lunch break.
+2-3Pm: New flutter packages finding.
+3-4Pm : learn the kotlin .
+4-5Pm : learn the kotlin .
+5-6Pm : learn the kotlin .
+
+
+23-07-2026
+9-10Am : update the packages.
+10-11Am : learn the kotlin featurs.
+11-12Am : learn the kotlin featurs.
+12-1Pm: review project.
+1-2Pm: Lunch break.
+2-3Pm: Create the project assignment option ppt.
+3-4Pm : Surya and kevin sir to discuss project flow.
+4-5Pm : Create the model project.
+5-6Pm : Update the UI.
+
+
+24-07-2026
+9-10Am : Meeting.
+10-11Am : create the model.
+11-12Am : Meeting with surya and kevin.
+12-1Pm: Meeting with surya and kevin, discussion with flow and correct with code.
+1-2Pm: Lunch break.
+2-3Pm: Create the project assignment option ppt.
+3-4Pm : find the exiting code.
+4-5Pm : Create the Ui model.
+5-6Pm : Continue with ui .
+
+25-07-2026
+9-10Am : Start the new work flow.
+10-11Am : Upgrading Ui/UX.
+11-12Am : finding the Database and update.
+12-1Pm: Meeting.
+
+27-07-2026
+9-10Am : Meeting.
+10-11Am : Call with kevin sir discussion flow.
+11-12Am : Cleary the flow.
+12-1Pm: Start the work.
+1-2Pm: Lunch break.
+2-3Pm: Create the project file.
+3-4Pm : find the current employee list from the Database.
+4-5Pm : Continue development.
+5-6Pm : Continue development.
+
+ALTER TABLE `z\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_user\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\_master` CHANGE `status` `status` INT NULL DEFAULT NULL COMMENT 'status=2\"Current working employees\r\n\"';
+
+change the user_id 462 to 467
+
+28-07-2026
+9-10Am : Meeting and call with Surya and kevin.
+10-11Am : Create the API.
+11-12Am : Explore the Jira & Scrum software.
+12-1Pm: Explore the Jira & Scrum software.
+1-2Pm: Lunch break.
+2-3Pm: Create jira s/w flow based.
+3-4Pm : get the employee list & select option.
+4-5Pm : Continue .
+5-6Pm : Continue .
+
+29-07-2026
+9-10Am : Continue Assignment.
+10-11Am : Meeting.
+11-12Am : development continue.
+12-1Pm: Calculate the days to entry task.
+1-2Pm: Lunch break.
+2-3Pm: after entry the project description, spilt the type of project.
+3-4Pm : select the employees and assign.
+4-5Pm : Continue .
+5-6Pm : call with kavin sir to discuss flow.
+
+
+30-07-2026
+
+//table creation
+CREATE TABLE y_project_details (
+    project_id INT AUTO_INCREMENT PRIMARY KEY,
+    assigner_id VARCHAR(20) NOT NULL,
+    project_name VARCHAR(255) NOT NULL,
+    role_name VARCHAR(100) NOT NULL,
+    total_days INT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE y_project_employees (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    project_id INT NOT NULL,
+    employee_id VARCHAR(20) NOT NULL,
+
+    FOREIGN KEY (project_id)
+        REFERENCES project_details(project_id)
+        ON DELETE CASCADE
+);
+
+CREATE TABLE y_project_tasks (
+    task_id INT AUTO_INCREMENT PRIMARY KEY,
+    project_id INT NOT NULL,
+    employee_id VARCHAR(20) NOT NULL,
+    day_number INT NOT NULL,
+    task TEXT NOT NULL,
+    status ENUM('Pending','In Progress','Completed')
+        DEFAULT 'Pending',
+
+    FOREIGN KEY (project_id)
+        REFERENCES project_details(project_id)
+        ON DELETE CASCADE
+);
+
+9-10Am : fixes the null saft issue.
+10-11Am : fixes the null saft issue.
+11-12Am : enable the multiple task assigner.
+12-1Pm: upgrade ui AND ux.
+1-2Pm: Lunch break.
+2-3Pm: fix the backend.
+3-4Pm : Create the backend logic.
+4-5Pm : Create the DB .
+5-6Pm : test the flow.
+
+31-07-2026
+9-10Am : get the  backend data to check the details.
+10-11Am : fixes the null saft issue.
+11-12Am : get the backend project details write api.
+12-1Pm: create ui.
+1-2Pm: Lunch break.
+2-3Pm: View the project list.
+3-4Pm : continue to create.
+4-5Pm : Create the DB .
+5-6Pm : permission.
+
+
+01-08-2026
+9-10Am : continue to update work flow.
+10-11Am : Upgrading Ui/UX.
+11-12Am : getting data to Database and update.
+12-1Pm: Meeting.
