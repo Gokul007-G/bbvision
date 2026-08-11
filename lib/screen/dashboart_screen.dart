@@ -1,5 +1,6 @@
 import 'package:bbvision/screen/project/project_assignment_screen.dart';
-import 'package:bbvision/screen/project/view_projects.dart';
+import 'package:bbvision/screen/project/view_project_emp_screen.dart';
+import 'package:bbvision/screen/project/view_projects_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:bbvision/controller/login_controller.dart';
@@ -51,6 +52,7 @@ class DashboardScreen extends StatelessWidget {
   // ================= DASHBOARD CONTENT =================
 
   Widget _dashboardContent(BuildContext context, LoginData user) {
+    print(user.userName);
     return Column(
       children: [
         // 🔝 Fixed Header
@@ -64,80 +66,156 @@ class DashboardScreen extends StatelessWidget {
           child: _sectionTitle("Quick Actions"),
         ),
 
-        // 🔄 ONLY GRID SCROLLS
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            child: GridView.count(
-              crossAxisCount: 2,
-              crossAxisSpacing: 14,
-              mainAxisSpacing: 14,
-              childAspectRatio: 1.4,
-              children: [
-                _actionCard(
-                  icon: Icons.note_add,
-                  title: "Add Enquiry",
-                  color: AppColors.primary,
-                  onTap: () => Get.to(() => AddEnquiryScreen()),
-                ),
-                _actionCard(
-                  icon: Icons.assignment,
-                  title: "View Enquiry",
-                  color: AppColors.blue,
-                  onTap: () => Get.to(() => ViewEnquiryScreen()),
-                ),
-                _actionCard(
-                  icon: Icons.person_add,
-                  title: "Add Visitor",
-                  color: AppColors.success,
-                  onTap: () => Get.to(() => AddVisitorScreen()),
-                ),
-                _actionCard(
-                  icon: Icons.groups,
-                  title: "View Visitor",
-                  color: AppColors.secondary,
-                  onTap: () => Get.to(() => ViewVisitorScreen()),
-                ),
-                _actionCard(
-                  icon: Icons.add_comment_sharp,
-                  title: "Leave Request",
-                  color: AppColors.chartPending,
-                  onTap: () => Get.to(() => AddLeaveRequestScreen()),
-                ),
-                _actionCard(
-                  icon: Icons.grading_outlined,
-                  title: "View Leave Request",
-                  color: AppColors.textPrimary,
-                  onTap: () => Get.to(() => ViewRequestScreen()),
-                ),
-                _actionCard(
-                  icon: Icons.add_card,
-                  title: "Add Claim",
-                  color: AppColors.warning,
-                  onTap: () => Get.to(() => AddClaimScreen()),
-                ),
-                _actionCard(
-                  icon: Icons.request_page,
-                  title: "Claim",
-                  color: AppColors.blue,
-                  onTap: () => Get.to(() => ViewClaimScreen()),
-                ),
-                _actionCard(
-                  icon: Icons.paypal_sharp,
-                  title: "Payslip View",
-                  color: AppColors.blue,
-                  onTap: () => Get.to(() => PayslipScreen()),
-                ),
-                _actionCard(
-                  icon: Icons.assignment_ind,
-                  title: "Project Assignment",
-                  color: AppColors.appBar,
-                  onTap: () => Get.to(() => ViewProjects()),
-                ),
-              ],
+        if (user.userGroupCode == 'R003')
+          // 🔄 ONLY GRID SCROLLS
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              child: GridView.count(
+                crossAxisCount: 2,
+                crossAxisSpacing: 14,
+                mainAxisSpacing: 14,
+                childAspectRatio: 1.4,
+                children: [
+                  _actionCard(
+                    icon: Icons.note_add,
+                    title: "Add Enquiry",
+                    color: AppColors.primary,
+                    onTap: () => Get.to(() => AddEnquiryScreen()),
+                  ),
+                  _actionCard(
+                    icon: Icons.assignment,
+                    title: "View Enquiry",
+                    color: AppColors.blue,
+                    onTap: () => Get.to(() => ViewEnquiryScreen()),
+                  ),
+                  _actionCard(
+                    icon: Icons.person_add,
+                    title: "Add Visitor",
+                    color: AppColors.success,
+                    onTap: () => Get.to(() => AddVisitorScreen()),
+                  ),
+                  _actionCard(
+                    icon: Icons.groups,
+                    title: "View Visitor",
+                    color: AppColors.secondary,
+                    onTap: () => Get.to(() => ViewVisitorScreen()),
+                  ),
+                  _actionCard(
+                    icon: Icons.add_comment_sharp,
+                    title: "Leave Request",
+                    color: AppColors.chartPending,
+                    onTap: () => Get.to(() => AddLeaveRequestScreen()),
+                  ),
+                  _actionCard(
+                    icon: Icons.grading_outlined,
+                    title: "View Leave Request",
+                    color: AppColors.textPrimary,
+                    onTap: () => Get.to(() => ViewRequestScreen()),
+                  ),
+                  _actionCard(
+                    icon: Icons.add_card,
+                    title: "Add Claim",
+                    color: AppColors.warning,
+                    onTap: () => Get.to(() => AddClaimScreen()),
+                  ),
+                  _actionCard(
+                    icon: Icons.request_page,
+                    title: "Claim",
+                    color: AppColors.blue,
+                    onTap: () => Get.to(() => ViewClaimScreen()),
+                  ),
+                  _actionCard(
+                    icon: Icons.paypal_sharp,
+                    title: "Payslip View",
+                    color: AppColors.blue,
+                    onTap: () => Get.to(() => PayslipScreen()),
+                  ),
+                  _actionCard(
+                    icon: Icons.assignment_ind,
+                    title: "Project Assignment",
+                    color: AppColors.appBar,
+                    onTap: () => Get.to(() => ViewProjectsScreen()),
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
+
+        if (user.userGroupCode != 'R003')
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              child: GridView.count(
+                crossAxisCount: 2,
+                crossAxisSpacing: 14,
+                mainAxisSpacing: 14,
+                childAspectRatio: 1.4,
+                children: [
+                  _actionCard(
+                    icon: Icons.note_add,
+                    title: "Add Enquiry",
+                    color: AppColors.primary,
+                    onTap: () => Get.to(() => AddEnquiryScreen()),
+                  ),
+                  _actionCard(
+                    icon: Icons.assignment,
+                    title: "View Enquiry",
+                    color: AppColors.blue,
+                    onTap: () => Get.to(() => ViewEnquiryScreen()),
+                  ),
+                  _actionCard(
+                    icon: Icons.person_add,
+                    title: "Add Visitor",
+                    color: AppColors.success,
+                    onTap: () => Get.to(() => AddVisitorScreen()),
+                  ),
+                  _actionCard(
+                    icon: Icons.groups,
+                    title: "View Visitor",
+                    color: AppColors.secondary,
+                    onTap: () => Get.to(() => ViewVisitorScreen()),
+                  ),
+                  _actionCard(
+                    icon: Icons.add_comment_sharp,
+                    title: "Leave Request",
+                    color: AppColors.chartPending,
+                    onTap: () => Get.to(() => AddLeaveRequestScreen()),
+                  ),
+                  _actionCard(
+                    icon: Icons.grading_outlined,
+                    title: "View Leave Request",
+                    color: AppColors.textPrimary,
+                    onTap: () => Get.to(() => ViewRequestScreen()),
+                  ),
+                  _actionCard(
+                    icon: Icons.add_card,
+                    title: "Add Claim",
+                    color: AppColors.warning,
+                    onTap: () => Get.to(() => AddClaimScreen()),
+                  ),
+                  _actionCard(
+                    icon: Icons.request_page,
+                    title: "Claim",
+                    color: AppColors.blue,
+                    onTap: () => Get.to(() => ViewClaimScreen()),
+                  ),
+                  _actionCard(
+                    icon: Icons.paypal_sharp,
+                    title: "Payslip View",
+                    color: AppColors.blue,
+                    onTap: () => Get.to(() => PayslipScreen()),
+                  ),
+                  _actionCard(
+                    icon: Icons.assignment_ind,
+                    title: "Project Assignment",
+                    color: AppColors.appBar,
+                    onTap: () => Get.to(() => ViewProjectEmpScreen()),
+                  ),
+                ],
+              ),
+            ),
+          ),
 
         // 🚪 Fixed Logout Button
         // Padding(

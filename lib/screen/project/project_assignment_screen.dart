@@ -12,8 +12,7 @@ class ProjectAssignmentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Project Assignment"),
-    ),
+      appBar: AppBar(title: const Text("Project Assignment")),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -84,7 +83,7 @@ class ProjectAssignmentScreen extends StatelessWidget {
                             ),
                             const SizedBox(height: 3),
                             Text(
-                              controller.selectedRole.value?.roleName ??
+                              controller.selectedRole.value?.empRoleName ??
                                   "Select Employee Role",
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -512,7 +511,7 @@ class ProjectAssignmentScreen extends StatelessWidget {
                         leading: CircleAvatar(
                           backgroundColor: Colors.blue.shade100,
                           child: Text(
-                            role.roleName![0],
+                            role.empRoleName![0],
                             style: TextStyle(
                               color: Colors.blue.shade700,
                               fontWeight: FontWeight.bold,
@@ -520,7 +519,7 @@ class ProjectAssignmentScreen extends StatelessWidget {
                           ),
                         ),
                         title: Text(
-                          role.roleName ?? "",
+                          role.empRoleName ?? "",
                           style: const TextStyle(fontWeight: FontWeight.w600),
                         ),
                         subtitle: Text(role.code ?? ""),

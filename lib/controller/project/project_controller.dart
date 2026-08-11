@@ -29,9 +29,9 @@ class ProjectController extends GetxController {
   List<Map<String, dynamic>> taskList = [];
 
   @override
-  void onInit() {
+  void onInit()async{
     super.onInit();
-    getEmployeeList();
+    await getEmployeeList();
   }
 
   Future submit() async {
@@ -53,7 +53,7 @@ class ProjectController extends GetxController {
     final body = {
       "assigner_Id": login?.data?.assEmpId ?? "",
       "project_name": projectName.value.text,
-      "role": selectedRole.value?.roleName,
+      "role": selectedRole.value?.empRoleName,
       "days": days.value,
       "employees": selectedEmployees,
       "tasks": taskList,
@@ -63,7 +63,7 @@ class ProjectController extends GetxController {
     final result = await service.addNewProject(
       assignerId: login?.data?.assEmpId ?? "",
       projectName: projectName.value.text,
-      projectRole: selectedRole.value?.roleName ?? "",
+      projectRole: selectedRole.value?.empRoleName ?? "",
       days: days.value,
       employees: selectedEmployees.map((e) => e.toJson()).toList(),
       tasks: taskList,
@@ -73,8 +73,6 @@ class ProjectController extends GetxController {
       print(result);
       Get.back();
     }
-
-    // dio.post(url, data: body);
   }
 
   void generateTaskController() {
@@ -94,7 +92,7 @@ class ProjectController extends GetxController {
     } else {
       filteredRoles.assignAll(
         roleList.where(
-          (role) => role.roleName!.toLowerCase().contains(value.toLowerCase()),
+          (role) => role.empRoleName!.toLowerCase().contains(value.toLowerCase()),
         ),
       );
     }

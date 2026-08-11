@@ -8,6 +8,7 @@ class ViewVisitorScreen extends StatelessWidget {
   ViewVisitorScreen({super.key});
 
   final controller = Get.put(ViewVisitorController());
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

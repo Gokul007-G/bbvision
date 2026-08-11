@@ -151,3 +151,56 @@ CREATE TABLE y_project_tasks (
 10-11Am : Upgrading Ui/UX.
 11-12Am : getting data to Database and update.
 12-1Pm: Meeting.
+
+03-08-2026
+9-10Am : backend to get the project list data, write the api.
+10-11Am : fixes the null saft issue.
+11-12Am : get the backend project details write api.
+12-1Pm: call kevin sir, develop the project.
+1-2Pm: Lunch break.
+2-3Pm: get the data and find bug.
+3-4Pm : mismatch json data find.
+4-5Pm : continue to debug.
+5-6Pm : postman to check the backend data.
+
+
+04-08-2026
+9-10Am : continue to debug.
+10-11Am : solve the backend issue.
+11-12Am : getting correct data to backend.
+12-1Pm: explore the package to upgrade the app Ui.
+1-2Pm: Lunch break.
+2-3Pm: add to the data and get query to finding the data.
+3-4Pm : testing the json data.
+4-5Pm : view the data in Ui.
+5-6Pm : upgrade the Ui and UX.
+
+
+06-08-2026
+9-10Am : continue to upgrade.
+10-11Am : create the dashboard.
+11-12Am : find and clear the null safty error.
+12-1Pm: display the datas.
+1-2Pm: Lunch break.
+2-3Pm: create the full deatils screen page to design.
+3-4Pm : create the query to get expected values to get.
+4-5Pm : postman to check the data and find issue.
+5-6Pm : view and upgrade the Ui and UX.
+
+
+07-08-2026
+9-10Am : meeting.
+10-11Am : create the full screen view to show the information admin dashboard.
+11-12Am : clear the issues.
+12-1Pm: check the null saft issue.
+1-2Pm: Lunch break.
+2-3Pm: show the team tasks to admin.
+3-4Pm : flutter package issue to clear.
+4-5Pm : rewrite the code structure.
+5-6Pm : testing full app in admin login , improve the ui.
+
+08-08-2026
+9-10Am : create the employee dashboard.
+10-11Am : solve the database issue.
+11-12Am : view the data to the employee side.
+12-1Pm: meeting.
