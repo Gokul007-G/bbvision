@@ -204,3 +204,56 @@ CREATE TABLE y_project_tasks (
 10-11Am : solve the database issue.
 11-12Am : view the data to the employee side.
 12-1Pm: meeting.
+
+
+07-08-2026
+9-10Am : update the query and solve the issue.
+10-11Am : meeting.
+11-12Am : .
+12-1Pm: .
+1-2Pm: Lunch break.
+2-3Pm: show the team tasks to admin.
+3-4Pm : flutter package issue to clear.
+4-5Pm : rewrite the code structure.
+5-6Pm : testing full app in admin login , improve the ui.
+
+
+employee to store the location
+
+CREATE TABLE employee_locations (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    employee_id VARCHAR(50) NOT NULL,
+
+    latitude DECIMAL(10, 7) NOT NULL,
+    longitude DECIMAL(10, 7) NOT NULL,
+
+    location_name VARCHAR(255) DEFAULT NULL,
+    area VARCHAR(255) DEFAULT NULL,
+    city VARCHAR(255) DEFAULT NULL,
+    district VARCHAR(255) DEFAULT NULL,
+    state VARCHAR(255) DEFAULT NULL,
+    postal_code VARCHAR(20) DEFAULT NULL,
+    country VARCHAR(100) DEFAULT NULL,
+
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (id),
+    INDEX idx_employee_id (employee_id),
+    INDEX idx_created_at (created_at)
+);
+
+first store the latitude and longitude
+
+CREATE TABLE employee_locations (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
+    employee_id VARCHAR(50) NOT NULL,
+
+    latitude DECIMAL(10, 7) NOT NULL,
+    longitude DECIMAL(10, 7) NOT NULL,
+
+    created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    PRIMARY KEY (id),
+    INDEX idx_employee_id (employee_id),
+    INDEX idx_created_at (created_at)
+);

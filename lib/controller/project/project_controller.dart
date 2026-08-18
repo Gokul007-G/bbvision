@@ -1,3 +1,4 @@
+import 'package:bbvision/controller/project/view_project_controller.dart';
 import 'package:bbvision/model/project/employee_model.dart';
 import 'package:bbvision/model/project/role_model.dart';
 import 'package:bbvision/service/auth_local_storage.dart';
@@ -29,7 +30,7 @@ class ProjectController extends GetxController {
   List<Map<String, dynamic>> taskList = [];
 
   @override
-  void onInit()async{
+  void onInit() async {
     super.onInit();
     await getEmployeeList();
   }
@@ -71,6 +72,9 @@ class ProjectController extends GetxController {
 
     if (result) {
       print(result);
+      final controller = Get.put(ViewProjectController());
+
+      await controller.getProjects();
       Get.back();
     }
   }
@@ -92,7 +96,8 @@ class ProjectController extends GetxController {
     } else {
       filteredRoles.assignAll(
         roleList.where(
-          (role) => role.empRoleName!.toLowerCase().contains(value.toLowerCase()),
+          (role) =>
+              role.empRoleName!.toLowerCase().contains(value.toLowerCase()),
         ),
       );
     }
@@ -117,6 +122,7 @@ class ProjectController extends GetxController {
 
   Future<void> getEmployeeList() async {
     final result = await service.getEmployeeList();
+    print('--------Project COntroller----------------');
 
     if (result != null) {
       employeeList.assignAll(result.employees);
@@ -124,8 +130,10 @@ class ProjectController extends GetxController {
       filteredRoles.assignAll(result.roles);
     }
     print('----------------------');
-    print(employeeList);
+    print('Employtee $employeeList');
+    print('Role : $roleList');
     print('----------------------');
+    print('------------------------');
   }
 
   void toggleEmployee(EmployeeModel employee) {

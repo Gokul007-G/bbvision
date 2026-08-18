@@ -1,6 +1,7 @@
-import 'package:bbvision/screen/project/project_assignment_screen.dart';
+import 'package:bbvision/controller/location_controller.dart';
+import 'package:bbvision/screen/location/view_location_screen.dart';
 import 'package:bbvision/screen/project/view_project_emp_screen.dart';
-import 'package:bbvision/screen/project/view_projects_screen.dart';
+import 'package:bbvision/screen/show_location.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:bbvision/controller/login_controller.dart';
@@ -56,7 +57,7 @@ class DashboardScreen extends StatelessWidget {
     return Column(
       children: [
         // 🔝 Fixed Header
-        _header(user),
+        _header(user, context),
 
         const SizedBox(height: 12),
 
@@ -66,168 +67,168 @@ class DashboardScreen extends StatelessWidget {
           child: _sectionTitle("Quick Actions"),
         ),
 
-        if (user.userGroupCode == 'R003')
-          // 🔄 ONLY GRID SCROLLS
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              child: GridView.count(
-                crossAxisCount: 2,
-                crossAxisSpacing: 14,
-                mainAxisSpacing: 14,
-                childAspectRatio: 1.4,
-                children: [
-                  _actionCard(
-                    icon: Icons.note_add,
-                    title: "Add Enquiry",
-                    color: AppColors.primary,
-                    onTap: () => Get.to(() => AddEnquiryScreen()),
-                  ),
-                  _actionCard(
-                    icon: Icons.assignment,
-                    title: "View Enquiry",
-                    color: AppColors.blue,
-                    onTap: () => Get.to(() => ViewEnquiryScreen()),
-                  ),
-                  _actionCard(
-                    icon: Icons.person_add,
-                    title: "Add Visitor",
-                    color: AppColors.success,
-                    onTap: () => Get.to(() => AddVisitorScreen()),
-                  ),
-                  _actionCard(
-                    icon: Icons.groups,
-                    title: "View Visitor",
-                    color: AppColors.secondary,
-                    onTap: () => Get.to(() => ViewVisitorScreen()),
-                  ),
-                  _actionCard(
-                    icon: Icons.add_comment_sharp,
-                    title: "Leave Request",
-                    color: AppColors.chartPending,
-                    onTap: () => Get.to(() => AddLeaveRequestScreen()),
-                  ),
-                  _actionCard(
-                    icon: Icons.grading_outlined,
-                    title: "View Leave Request",
-                    color: AppColors.textPrimary,
-                    onTap: () => Get.to(() => ViewRequestScreen()),
-                  ),
-                  _actionCard(
-                    icon: Icons.add_card,
-                    title: "Add Claim",
-                    color: AppColors.warning,
-                    onTap: () => Get.to(() => AddClaimScreen()),
-                  ),
-                  _actionCard(
-                    icon: Icons.request_page,
-                    title: "Claim",
-                    color: AppColors.blue,
-                    onTap: () => Get.to(() => ViewClaimScreen()),
-                  ),
-                  _actionCard(
-                    icon: Icons.paypal_sharp,
-                    title: "Payslip View",
-                    color: AppColors.blue,
-                    onTap: () => Get.to(() => PayslipScreen()),
-                  ),
-                  _actionCard(
-                    icon: Icons.assignment_ind,
-                    title: "Project Assignment",
-                    color: AppColors.appBar,
-                    onTap: () => Get.to(() => ViewProjectsScreen()),
-                  ),
-                ],
-              ),
+        // if (user.userGroupCode == 'R003')
+        //   // 🔄 ONLY GRID SCROLLS
+        //   Expanded(
+        //     child: Padding(
+        //       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        //       child: GridView.count(
+        //         crossAxisCount: 2,
+        //         crossAxisSpacing: 14,
+        //         mainAxisSpacing: 14,
+        //         childAspectRatio: 1.4,
+        //         children: [
+        //           _actionCard(
+        //             icon: Icons.note_add,
+        //             title: "Add Enquiry",
+        //             color: AppColors.primary,
+        //             onTap: () => Get.to(() => AddEnquiryScreen()),
+        //           ),
+        //           _actionCard(
+        //             icon: Icons.assignment,
+        //             title: "View Enquiry",
+        //             color: AppColors.blue,
+        //             onTap: () => Get.to(() => ViewEnquiryScreen()),
+        //           ),
+        //           _actionCard(
+        //             icon: Icons.person_add,
+        //             title: "Add Visitor",
+        //             color: AppColors.success,
+        //             onTap: () => Get.to(() => AddVisitorScreen()),
+        //           ),
+        //           _actionCard(
+        //             icon: Icons.groups,
+        //             title: "View Visitor",
+        //             color: AppColors.secondary,
+        //             onTap: () => Get.to(() => ViewVisitorScreen()),
+        //           ),
+        //           _actionCard(
+        //             icon: Icons.add_comment_sharp,
+        //             title: "Leave Request",
+        //             color: AppColors.chartPending,
+        //             onTap: () => Get.to(() => AddLeaveRequestScreen()),
+        //           ),
+        //           _actionCard(
+        //             icon: Icons.grading_outlined,
+        //             title: "View Leave Request",
+        //             color: AppColors.textPrimary,
+        //             onTap: () => Get.to(() => ViewRequestScreen()),
+        //           ),
+        //           _actionCard(
+        //             icon: Icons.add_card,
+        //             title: "Add Claim",
+        //             color: AppColors.warning,
+        //             onTap: () => Get.to(() => AddClaimScreen()),
+        //           ),
+        //           _actionCard(
+        //             icon: Icons.request_page,
+        //             title: "Claim",
+        //             color: AppColors.blue,
+        //             onTap: () => Get.to(() => ViewClaimScreen()),
+        //           ),
+        //           _actionCard(
+        //             icon: Icons.paypal_sharp,
+        //             title: "Payslip View",
+        //             color: AppColors.blue,
+        //             onTap: () => Get.to(() => PayslipScreen()),
+        //           ),
+        //           _actionCard(
+        //             icon: Icons.assignment_ind,
+        //             title: "Project Assignment",
+        //             color: AppColors.appBar,
+        //             onTap: () => Get.to(() => ViewProjectsScreen()),
+        //           ),
+        //         ],
+        //       ),
+        //     ),
+        //   ),
+
+        // if (user.userGroupCode != 'R003')
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            child: GridView.count(
+              crossAxisCount: 2,
+              crossAxisSpacing: 14,
+              mainAxisSpacing: 14,
+              childAspectRatio: 1.4,
+              children: [
+                _actionCard(
+                  icon: Icons.note_add,
+                  title: "Add Enquiry",
+                  color: AppColors.primary,
+                  onTap: () => Get.to(() => AddEnquiryScreen()),
+                ),
+                _actionCard(
+                  icon: Icons.assignment,
+                  title: "View Enquiry",
+                  color: AppColors.blue,
+                  onTap: () => Get.to(() => ViewEnquiryScreen()),
+                ),
+                _actionCard(
+                  icon: Icons.person_add,
+                  title: "Add Visitor",
+                  color: AppColors.success,
+                  onTap: () => Get.to(() => AddVisitorScreen()),
+                ),
+                _actionCard(
+                  icon: Icons.groups,
+                  title: "View Visitor",
+                  color: AppColors.secondary,
+                  onTap: () => Get.to(() => ViewVisitorScreen()),
+                ),
+                _actionCard(
+                  icon: Icons.add_comment_sharp,
+                  title: "Leave Request",
+                  color: AppColors.chartPending,
+                  onTap: () => Get.to(() => AddLeaveRequestScreen()),
+                ),
+                _actionCard(
+                  icon: Icons.grading_outlined,
+                  title: "View Leave Request",
+                  color: AppColors.textPrimary,
+                  onTap: () => Get.to(() => ViewRequestScreen()),
+                ),
+                _actionCard(
+                  icon: Icons.add_card,
+                  title: "Add Claim",
+                  color: AppColors.warning,
+                  onTap: () => Get.to(() => AddClaimScreen()),
+                ),
+                _actionCard(
+                  icon: Icons.request_page,
+                  title: "Claim",
+                  color: AppColors.blue,
+                  onTap: () => Get.to(() => ViewClaimScreen()),
+                ),
+                _actionCard(
+                  icon: Icons.paypal_sharp,
+                  title: "Payslip View",
+                  color: AppColors.blue,
+                  onTap: () => Get.to(() => PayslipScreen()),
+                ),
+                _actionCard(
+                  icon: Icons.assignment_ind,
+                  title: "Project Assignment",
+                  color: AppColors.appBar,
+                  onTap: () => Get.to(() => ViewProjectEmpScreen()),
+                ),
+                _actionCard(
+                  icon: Icons.location_history,
+                  title: "Locations",
+                  color: AppColors.appBar,
+                  onTap: () => Get.to(() => ViewLocationScreen()),
+                ),
+              ],
             ),
           ),
-
-        if (user.userGroupCode != 'R003')
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              child: GridView.count(
-                crossAxisCount: 2,
-                crossAxisSpacing: 14,
-                mainAxisSpacing: 14,
-                childAspectRatio: 1.4,
-                children: [
-                  _actionCard(
-                    icon: Icons.note_add,
-                    title: "Add Enquiry",
-                    color: AppColors.primary,
-                    onTap: () => Get.to(() => AddEnquiryScreen()),
-                  ),
-                  _actionCard(
-                    icon: Icons.assignment,
-                    title: "View Enquiry",
-                    color: AppColors.blue,
-                    onTap: () => Get.to(() => ViewEnquiryScreen()),
-                  ),
-                  _actionCard(
-                    icon: Icons.person_add,
-                    title: "Add Visitor",
-                    color: AppColors.success,
-                    onTap: () => Get.to(() => AddVisitorScreen()),
-                  ),
-                  _actionCard(
-                    icon: Icons.groups,
-                    title: "View Visitor",
-                    color: AppColors.secondary,
-                    onTap: () => Get.to(() => ViewVisitorScreen()),
-                  ),
-                  _actionCard(
-                    icon: Icons.add_comment_sharp,
-                    title: "Leave Request",
-                    color: AppColors.chartPending,
-                    onTap: () => Get.to(() => AddLeaveRequestScreen()),
-                  ),
-                  _actionCard(
-                    icon: Icons.grading_outlined,
-                    title: "View Leave Request",
-                    color: AppColors.textPrimary,
-                    onTap: () => Get.to(() => ViewRequestScreen()),
-                  ),
-                  _actionCard(
-                    icon: Icons.add_card,
-                    title: "Add Claim",
-                    color: AppColors.warning,
-                    onTap: () => Get.to(() => AddClaimScreen()),
-                  ),
-                  _actionCard(
-                    icon: Icons.request_page,
-                    title: "Claim",
-                    color: AppColors.blue,
-                    onTap: () => Get.to(() => ViewClaimScreen()),
-                  ),
-                  _actionCard(
-                    icon: Icons.paypal_sharp,
-                    title: "Payslip View",
-                    color: AppColors.blue,
-                    onTap: () => Get.to(() => PayslipScreen()),
-                  ),
-                  _actionCard(
-                    icon: Icons.assignment_ind,
-                    title: "Project Assignment",
-                    color: AppColors.appBar,
-                    onTap: () => Get.to(() => ViewProjectEmpScreen()),
-                  ),
-                ],
-              ),
-            ),
-          ),
-
-        // 🚪 Fixed Logout Button
-        // Padding(
-        //   padding: const EdgeInsets.symmetric(vertical: 28, horizontal: 16),
-        //   child: _logoutButton(),
-        // ),
+        ),
       ],
     );
   }
 
   // ================= HEADER =================
-  Widget _header(LoginData user) {
+  Widget _header(LoginData user, BuildContext context) {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(16, 60, 16, 30),
@@ -439,10 +440,153 @@ class DashboardScreen extends StatelessWidget {
                 "Dept",
                 user.departmentName == '' ? 'Founder' : user.departmentName,
               ),
+              GestureDetector(
+                onTap: () {
+                  _showLocationConfirmation(context);
+                },
+                child: _headerInfo(
+                  Icons.location_on,
+                  "Location",
+                  "Get Location",
+                ),
+              ),
             ],
           ),
         ],
       ),
+    );
+  }
+
+  Future<void> _showLocationConfirmation(BuildContext context) async {
+    final bool? confirm = await showDialog<bool>(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: const Text("Get Current Location"),
+          content: const Text(
+            "Do you want to allow this app to access "
+            "your current latitude and longitude?",
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context, false);
+              },
+              child: const Text("No"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context, true);
+              },
+              child: const Text("Yes"),
+            ),
+          ],
+        );
+      },
+    );
+
+    if (confirm != true) return;
+
+    // Show loading
+    _showLocationLoading(context);
+
+    try {
+      final locationController = Get.put(LocationController());
+
+      final location = await locationController.getCurrentLocation(context);
+
+      // Close loading dialog
+      if (context.mounted) {
+        Navigator.pop(context);
+      }
+
+      if (location == null) return;
+      // Show latitude & longitude
+      if (context.mounted) {
+        showDialog(
+          context: context,
+          builder: (context) {
+            return AlertDialog(
+              title: const Row(
+                children: [
+                  Icon(Icons.location_on, color: AppColors.primary),
+                  SizedBox(width: 8),
+                  Text("Current Location"),
+                ],
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _locationInfoRow(
+                    icon: Icons.north,
+                    title: "Latitude",
+                    value: location.latitude.toStringAsFixed(7),
+                  ),
+
+                  const SizedBox(height: 16),
+
+                  _locationInfoRow(
+                    icon: Icons.east,
+                    title: "Longitude",
+                    value: location.longitude.toStringAsFixed(7),
+                  ),
+                ],
+              ),
+              actions: [
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: AppColors.primary,
+                    foregroundColor: Colors.white,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  child: const Text("OK"),
+                ),
+              ],
+            );
+          },
+        );
+        // showLocation(context, location);
+      }
+    } catch (e) {
+      // Close loading dialog
+      if (context.mounted) {
+        Navigator.pop(context);
+      }
+
+      debugPrint("Location Error: $e");
+    } finally {
+      // Dispose LocationController
+      if (Get.isRegistered<LocationController>()) {
+        Get.delete<LocationController>();
+      }
+    }
+  }
+
+  void _showLocationLoading(BuildContext context) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (context) {
+        return const AlertDialog(
+          content: Row(
+            children: [
+              SizedBox(
+                width: 25,
+                height: 25,
+                child: CircularProgressIndicator(strokeWidth: 3),
+              ),
+              SizedBox(width: 20),
+              Expanded(child: Text("Getting your current location...")),
+            ],
+          ),
+        );
+      },
     );
   }
 
@@ -467,6 +611,50 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 
+  Widget _locationInfoRow({
+    required IconData icon,
+    required String title,
+    required String value,
+  }) {
+    return Row(
+      children: [
+        Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: AppColors.primary.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Icon(icon, color: AppColors.primary, size: 20),
+        ),
+
+        const SizedBox(width: 12),
+
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 11,
+                  color: AppColors.textSecondary,
+                ),
+              ),
+              const SizedBox(height: 3),
+              Text(
+                value,
+                style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold,
+                  color: AppColors.textPrimary,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
   // ================= ACTION CARD =================
 
   Widget _actionCard({
@@ -514,47 +702,6 @@ class DashboardScreen extends StatelessWidget {
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  // ================= LOGOUT =================
-
-  Widget _logoutButton() {
-    return SizedBox(
-      width: double.infinity,
-      child: ElevatedButton.icon(
-        icon: const Icon(Icons.logout),
-        label: const Text("Logout"),
-        style: ElevatedButton.styleFrom(
-          backgroundColor: AppColors.error,
-          padding: const EdgeInsets.symmetric(vertical: 14),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(14),
-          ),
-        ),
-        onPressed: () {
-          // Get.to(Page3());
-          Get.defaultDialog(
-            title: "Logout",
-            middleText: "Are you sure you want to logout?",
-            textConfirm: "Yes",
-            textCancel: "No",
-            titlePadding: EdgeInsets.only(top: 12),
-            cancelTextColor: AppColors.error,
-            confirmTextColor: Colors.white,
-            buttonColor: AppColors.error,
-            onConfirm: () async {
-              await AuthLocalStorage.clear();
-              loginController.userNameController.text = '';
-              loginController.passwordController.text = '';
-              Get.offAll(() => LoginScreen());
-            },
-            onCancel: () {
-              Get.back();
-            },
-          );
-        },
       ),
     );
   }

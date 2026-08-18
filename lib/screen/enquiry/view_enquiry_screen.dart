@@ -8,6 +8,7 @@ import '../../widget/appColors.dart';
 class ViewEnquiryScreen extends StatelessWidget {
   ViewEnquiryScreen({super.key});
   final controller = Get.put(ViewEnquiryController());
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(

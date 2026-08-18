@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:bbvision/model/login_model.dart';
 import 'package:bbvision/service/service.dart';
@@ -27,8 +26,13 @@ class LoginService {
         }
       }
       return null;
-    } on DioException {
-      rethrow; 
+    } on DioException catch (e) {
+      print('Dio Error Type: ${e.type}');
+      print('Dio Error Message: ${e.message}');
+      print('Dio Error: ${e.error}');
+      print('Request URL: ${e.requestOptions.uri}');
+      print('Response: ${e.response?.data}');
+      rethrow;
     } finally {
       print('Service end');
     }

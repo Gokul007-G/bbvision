@@ -12,6 +12,7 @@ class EmployeeListService {
     try {
       final response = await api.dio.get('project/employee_list.php');
       if (response.statusCode == 200) {
+        print(response.data);
         final data = response.data is String
             ? jsonDecode(response.data)
             : response.data;

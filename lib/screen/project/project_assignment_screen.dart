@@ -438,6 +438,8 @@ class ProjectAssignmentScreen extends StatelessWidget {
   void showRoleBottomSheet() {
     controller.roleSearchController.clear();
     controller.filteredRoles.assignAll(controller.roleList);
+    print(controller.roleList);
+    print(controller.filteredRoles);
     Get.bottomSheet(
       Container(
         height: Get.height * 0.72,
