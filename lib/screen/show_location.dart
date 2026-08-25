@@ -8,191 +8,165 @@ void showLocation(BuildContext context, LocationResultModel location) {
     isScrollControlled: true,
     backgroundColor: Colors.transparent,
     builder: (context) {
-      return SafeArea(
-        child: Container(
-          constraints: BoxConstraints(
-            maxHeight: MediaQuery.of(context).size.height * 0.88,
-          ),
-          decoration: const BoxDecoration(
-            color: AppColors.scaffoldBg,
-            borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
-          ),
-          child: Column(
-            children: [
-              // Top Header
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
-                child: Column(
-                  children: [
-                    // Drag Handle
-                    Container(
-                      width: 42,
-                      height: 5,
-                      decoration: BoxDecoration(
-                        color: AppColors.border,
-                        borderRadius: BorderRadius.circular(10),
-                      ),
+      return Container(
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height * 0.65,
+        ),
+        decoration: const BoxDecoration(
+          color: AppColors.scaffoldBg,
+          borderRadius: BorderRadius.vertical(top: Radius.circular(28)),
+        ),
+        child: Column(
+          children: [
+            // Top Header
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 12, 20, 12),
+              child: Column(
+                children: [
+                  // Drag Handle
+                  Container(
+                    width: 42,
+                    height: 5,
+                    decoration: BoxDecoration(
+                      color: AppColors.border,
+                      borderRadius: BorderRadius.circular(10),
                     ),
+                  ),
 
-                    const SizedBox(height: 18),
+                  const SizedBox(height: 18),
 
-                    Row(
-                      children: [
-                        Container(
-                          width: 48,
-                          height: 48,
-                          decoration: BoxDecoration(
-                            color: AppColors.primary.withOpacity(0.12),
-                            borderRadius: BorderRadius.circular(14),
-                          ),
-                          child: const Icon(
-                            Icons.location_on_rounded,
-                            color: AppColors.primary,
-                            size: 27,
-                          ),
-                        ),
-
-                        const SizedBox(width: 14),
-
-                        const Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Current Location",
-                                style: TextStyle(
-                                  color: AppColors.textPrimary,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              SizedBox(height: 3),
-                              Text(
-                                "Location detected successfully",
-                                style: TextStyle(
-                                  color: AppColors.textSecondary,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-
-                        Container(
-                          padding: const EdgeInsets.all(8),
-                          decoration: BoxDecoration(
-                            color: AppColors.success.withOpacity(0.1),
-                            shape: BoxShape.circle,
-                          ),
-                          child: const Icon(
-                            Icons.check_rounded,
-                            color: AppColors.success,
-                            size: 20,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-
-              // Content
-              Expanded(
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.fromLTRB(20, 8, 20, 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Row(
                     children: [
-                      // Main Location Card
-                      _buildMainLocationCard(location),
-
-                      const SizedBox(height: 22),
-
-                      const Text(
-                        "Location Details",
-                        style: TextStyle(
-                          color: AppColors.textPrimary,
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
+                      Container(
+                        width: 48,
+                        height: 48,
+                        decoration: BoxDecoration(
+                          color: AppColors.primary.withOpacity(0.12),
+                          borderRadius: BorderRadius.circular(14),
+                        ),
+                        child: const Icon(
+                          Icons.location_on_rounded,
+                          color: AppColors.primary,
+                          size: 27,
                         ),
                       ),
 
-                      const SizedBox(height: 10),
+                      const SizedBox(width: 14),
 
-                      _locationDetailTile(
-                        icon: Icons.location_on_outlined,
-                        title: "Area",
-                        value: location.area,
-                      ),
-
-                      _locationDetailTile(
-                        icon: Icons.location_city_outlined,
-                        title: "City",
-                        value: location.city,
-                      ),
-
-                      _locationDetailTile(
-                        icon: Icons.map_outlined,
-                        title: "District",
-                        value: location.district,
-                      ),
-
-                      _locationDetailTile(
-                        icon: Icons.public_outlined,
-                        title: "State",
-                        value: location.state,
-                      ),
-
-                      _locationDetailTile(
-                        icon: Icons.markunread_mailbox_outlined,
-                        title: "Postal Code",
-                        value: location.postalCode,
-                      ),
-
-                      _locationDetailTile(
-                        icon: Icons.flag_outlined,
-                        title: "Country",
-                        value: location.country,
-                      ),
-
-                      const SizedBox(height: 12),
-
-                      // GPS Section
-                      _buildGpsCard(location),
-
-                      const SizedBox(height: 20),
-
-                      // Done Button
-                      SizedBox(
-                        width: double.infinity,
-                        height: 52,
-                        child: ElevatedButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: AppColors.buttonPrimary,
-                            foregroundColor: Colors.white,
-                            elevation: 0,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(14),
+                      const Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "Attendances Marked",
+                              style: TextStyle(
+                                color: AppColors.textPrimary,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          child: const Text(
-                            "Done",
-                            style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
+                            SizedBox(height: 3),
+                            Text(
+                              "Location detected successfully",
+                              style: TextStyle(
+                                color: AppColors.textSecondary,
+                                fontSize: 12,
+                              ),
                             ),
-                          ),
+                          ],
+                        ),
+                      ),
+
+                      Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: AppColors.success.withOpacity(0.1),
+                          shape: BoxShape.circle,
+                        ),
+                        child: const Icon(
+                          Icons.check_rounded,
+                          color: AppColors.success,
+                          size: 20,
                         ),
                       ),
                     ],
                   ),
+                ],
+              ),
+            ),
+
+            // Content
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.fromLTRB(20, 8, 20, 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // Main Location Card
+                    _buildMainLocationCard(location),
+
+                    const SizedBox(height: 22),
+
+                    const Text(
+                      "Location Details",
+                      style: TextStyle(
+                        color: AppColors.textPrimary,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+
+                    const SizedBox(height: 10),
+
+                    _locationDetailTile(
+                      icon: Icons.location_on_outlined,
+                      title: "Area",
+                      value: location.area,
+                    ),
+
+                    _locationDetailTile(
+                      icon: Icons.location_city_outlined,
+                      title: "City",
+                      value: location.city,
+                    ),
+
+                    const SizedBox(height: 12),
+
+                    // GPS Section
+                    _buildGpsCard(location),
+
+                    const SizedBox(height: 20),
+
+                    // Done Button
+                    SizedBox(
+                      width: double.infinity,
+                      height: 52,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.buttonPrimary,
+                          foregroundColor: Colors.white,
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(14),
+                          ),
+                        ),
+                        child: const Text(
+                          "Done",
+                          style: TextStyle(
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       );
     },
@@ -206,7 +180,6 @@ Widget _buildMainLocationCard(LocationResultModel location) {
 
   final String locationSubtitle = [
     if (location.area.isNotEmpty) location.area,
-    if (location.state.isNotEmpty) location.state,
   ].join(" • ");
 
   return Container(

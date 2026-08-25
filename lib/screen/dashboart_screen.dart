@@ -2,6 +2,7 @@ import 'package:bbvision/controller/location_controller.dart';
 import 'package:bbvision/screen/location/view_location_screen.dart';
 import 'package:bbvision/screen/project/view_project_emp_screen.dart';
 import 'package:bbvision/screen/show_location.dart';
+import 'package:bbvision/widget/AttendanceConfirmationDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:bbvision/controller/login_controller.dart';
@@ -214,10 +215,13 @@ class DashboardScreen extends StatelessWidget {
                   onTap: () => Get.to(() => ViewProjectEmpScreen()),
                 ),
                 _actionCard(
-                  icon: Icons.location_history,
-                  title: "Locations",
+                  icon: Icons.fingerprint,
+                  title: "Mark Attendance",
                   color: AppColors.appBar,
-                  onTap: () => Get.to(() => ViewLocationScreen()),
+                  onTap: () => Get.to(
+                    () => ViewLocationScreen(
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -409,46 +413,43 @@ class DashboardScreen extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(height: 12),
-
-          // Name
-          // Text(
-          //   user.fullName,
-          //   style: const TextStyle(
-          //     fontSize: 22,
-          //     fontWeight: FontWeight.bold,
-          //     color: Colors.white,
-          //   ),
-          // ),
-
-          // const SizedBox(height: 4),
-
-          // // Role / Username
-          // Text(
-          //   user.userGroupCode,
-          //   style: const TextStyle(color: Colors.white70, fontSize: 14),
-          // ),
           const SizedBox(height: 18),
 
           // Quick Info
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              _headerInfo(Icons.badge, "Emp ID", user.assEmpId),
+              _headerInfo(Icons.badge, "Emp ID", user.userName),
               _headerInfo(
                 Icons.apartment,
                 "Dept",
                 user.departmentName == '' ? 'Founder' : user.departmentName,
               ),
               GestureDetector(
-                onTap: () {
-                  _showLocationConfirmation(context);
+                onTap: () async {
+                  final locationController = Get.put(LocationController());
+
+                  try {
+                    final response = await locationController.getAttendancesCnt(
+                      user.userName,
+                    );
+                    final int statusLog = response?["log"] ?? 0;
+                    final int tableId = response?["tableId"] ?? 0;
+                    if (context.mounted) {
+                      await _showLocationConfirmation(
+                        context,
+                        tableId,
+                        statusLog,
+                        locationController,
+                      );
+                    }
+                  } finally {
+                    if (Get.isRegistered<LocationController>()) {
+                      Get.delete<LocationController>();
+                    }
+                  }
                 },
-                child: _headerInfo(
-                  Icons.location_on,
-                  "Location",
-                  "Get Location",
-                ),
+                child: _headerInfo(Icons.location_on, "Mark", "Attendance"),
               ),
             ],
           ),
@@ -457,114 +458,49 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 
-  Future<void> _showLocationConfirmation(BuildContext context) async {
+  Future<void> _showLocationConfirmation(
+    BuildContext context,
+    int? tableId,
+    int? statusLog,
+    LocationController locationController,
+  ) async {
     final bool? confirm = await showDialog<bool>(
       context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: const Text("Get Current Location"),
-          content: const Text(
-            "Do you want to allow this app to access "
-            "your current latitude and longitude?",
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(context, false);
-              },
-              child: const Text("No"),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context, true);
-              },
-              child: const Text("Yes"),
-            ),
-          ],
-        );
-      },
+      builder: (_) => AttendanceConfirmationDialog(status: statusLog!),
     );
 
     if (confirm != true) return;
 
-    // Show loading
     _showLocationLoading(context);
 
     try {
-      final locationController = Get.put(LocationController());
+      if (statusLog == 0) {
+        final location = await locationController.getCurrentLocation(context);
 
-      final location = await locationController.getCurrentLocation(context);
+        if (context.mounted) {
+          Navigator.pop(context);
+        }
 
-      // Close loading dialog
-      if (context.mounted) {
+        if (location == null) return;
+
+        if (context.mounted) {
+          showLocation(context, location);
+        }
+      }
+      if (statusLog == 1 && tableId != null) {
+        final updateStatus = await locationController.updateLogoutCnt(tableId);
+
+        if (updateStatus) {
+          Get.snackbar("Success", "Logout update succesfully");
+        }
         Navigator.pop(context);
       }
-
-      if (location == null) return;
-      // Show latitude & longitude
-      if (context.mounted) {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              title: const Row(
-                children: [
-                  Icon(Icons.location_on, color: AppColors.primary),
-                  SizedBox(width: 8),
-                  Text("Current Location"),
-                ],
-              ),
-              content: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _locationInfoRow(
-                    icon: Icons.north,
-                    title: "Latitude",
-                    value: location.latitude.toStringAsFixed(7),
-                  ),
-
-                  const SizedBox(height: 16),
-
-                  _locationInfoRow(
-                    icon: Icons.east,
-                    title: "Longitude",
-                    value: location.longitude.toStringAsFixed(7),
-                  ),
-                ],
-              ),
-              actions: [
-                ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.primary,
-                    foregroundColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
-                  child: const Text("OK"),
-                ),
-              ],
-            );
-          },
-        );
-        // showLocation(context, location);
-      }
     } catch (e) {
-      // Close loading dialog
       if (context.mounted) {
         Navigator.pop(context);
       }
 
       debugPrint("Location Error: $e");
-    } finally {
-      // Dispose LocationController
-      if (Get.isRegistered<LocationController>()) {
-        Get.delete<LocationController>();
-      }
     }
   }
 
@@ -611,50 +547,6 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 
-  Widget _locationInfoRow({
-    required IconData icon,
-    required String title,
-    required String value,
-  }) {
-    return Row(
-      children: [
-        Container(
-          padding: const EdgeInsets.all(8),
-          decoration: BoxDecoration(
-            color: AppColors.primary.withOpacity(0.1),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Icon(icon, color: AppColors.primary, size: 20),
-        ),
-
-        const SizedBox(width: 12),
-
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 11,
-                  color: AppColors.textSecondary,
-                ),
-              ),
-              const SizedBox(height: 3),
-              Text(
-                value,
-                style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: AppColors.textPrimary,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
   // ================= ACTION CARD =================
 
   Widget _actionCard({

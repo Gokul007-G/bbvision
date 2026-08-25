@@ -30,10 +30,16 @@ class AuthLocalStorage {
     return pref.getString(_passwordKey);
   }
 
-  // // Get Group code
+  // // Get user Id
   static Future<String?> getGroupCode() async {
     final pref = await SharedPreferences.getInstance();
     return pref.getString(userGroupCode);
+  }
+
+  // // Get Group code
+  static Future<String?> getUserId() async {
+    final pref = await SharedPreferences.getInstance();
+    return pref.getString(userId);
   }
 
   //clear datas
