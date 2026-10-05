@@ -36,6 +36,83 @@ class ProjectController extends GetxController {
   }
 
   Future submit() async {
+    // 1. Project name validation
+    if (projectName.value.text.trim().isEmpty) {
+      Get.snackbar(
+        "Validation",
+        "Please enter project name",
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return;
+    }
+
+    // 2. Role validation
+    if (selectedRole.value == null) {
+      Get.snackbar(
+        "Validation",
+        "Please select employee role",
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return;
+    }
+
+    // 3. Employee validation
+    if (selectedEmployees.isEmpty) {
+      Get.snackbar(
+        "Validation",
+        "Please select at least one employee",
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return;
+    }
+
+    // 4. Number of days validation
+    final daysText = daysController.value.text.trim();
+
+    if (daysText.isEmpty) {
+      Get.snackbar(
+        "Validation",
+        "Please enter number of days",
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return;
+    }
+
+    final numberOfDays = int.tryParse(daysText);
+
+    if (numberOfDays == null || numberOfDays <= 0) {
+      Get.snackbar(
+        "Validation",
+        "Please enter a valid number of days",
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      return;
+    }
+
+    // 5. Task validation
+    for (final employee in selectedEmployees) {
+      final controllers = taskControllers[employee.userName];
+
+      if (controllers == null) {
+        Get.snackbar(
+          "Validation",
+          "Task details are missing for ${employee.fullName}",
+          snackPosition: SnackPosition.BOTTOM,
+        );
+        return;
+      }
+
+      for (int i = 0; i < controllers.length; i++) {
+        if (controllers[i].text.trim().isEmpty) {
+          Get.snackbar(
+            "Validation",
+            "Please enter Day ${i + 1} task for ${employee.fullName}",
+            snackPosition: SnackPosition.BOTTOM,
+          );
+          return;
+        }
+      }
+    }
     List<Map<String, dynamic>> taskList = [];
 
     taskControllers.forEach((empId, controllers) {
@@ -77,6 +154,11 @@ class ProjectController extends GetxController {
       await controller.getProjects();
       Get.back();
     }
+    print("Validation successful");
+    print("Project: ${projectName.value.text}");
+    print("Role: ${selectedRole.value?.empRoleName}");
+    print("Employees: ${selectedEmployees.length}");
+    print("Days: $numberOfDays");
   }
 
   void generateTaskController() {
@@ -104,6 +186,7 @@ class ProjectController extends GetxController {
   }
 
   void filterEmployees(String value) {
+    print('---------------$value----------');
     print(employeeList);
     print(value);
     if (value.isEmpty) {
@@ -117,7 +200,7 @@ class ProjectController extends GetxController {
         ),
       );
     }
-    print(filteredEmployees);
+    print("filteredEmployees $filteredEmployees");
   }
 
   Future<void> getEmployeeList() async {

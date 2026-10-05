@@ -1,10 +1,12 @@
 import 'package:bbvision/controller/project/project_controller.dart';
+import 'package:bbvision/screen/project/view_project_emp_screen.dart';
 import 'package:bbvision/widget/appColors.dart';
 import 'package:bbvision/widget/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProjectAssignmentScreen extends StatelessWidget {
+
   ProjectAssignmentScreen({super.key});
 
   final controller = Get.put(ProjectController());
@@ -12,7 +14,17 @@ class ProjectAssignmentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("Project Assignment")),
+      appBar: AppBar(
+        title: const Text("Project Assignment"),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Get.to(ViewProjectEmpScreen());
+            },
+            icon: Icon(Icons.assignment),
+          ),
+        ],
+      ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -23,6 +35,7 @@ class ProjectAssignmentScreen extends StatelessWidget {
               label: "Project Name",
               prefixIcon: Icons.work,
             ),
+
             //select role
             Obx(
               () => InkWell(
@@ -109,6 +122,7 @@ class ProjectAssignmentScreen extends StatelessWidget {
                 ),
               ),
             ),
+
             //Employee List
             Obx(
               () => InkWell(

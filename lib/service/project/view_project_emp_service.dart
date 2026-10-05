@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bbvision/model/project/project_model_emp.dart';
 import 'package:bbvision/service/service.dart';
 
@@ -26,12 +28,21 @@ class ViewProjectEmpService {
   }
 
   //get the project list based on the employee id
-  Future<List<ProjectModelEmp>?> getProjectList(String employeeId) async {
+  Future<List<ProjectModelEmp>?> getProjectList(
+    String userGroupCode,
+    String employeeId,
+  ) async {
     try {
       final response = await api.dio.get(
         'project/employee_view_project.php',
-        queryParameters: {"employeeId": employeeId},
+        queryParameters: {
+          "userGroupCode": userGroupCode,
+          "employeeId": employeeId,
+        },
       );
+      print(employeeId);
+      print(response.statusCode);
+      print(response.data);
 
       if (response.statusCode == 200 && response.data['status'] == "success") {
         final data = response.data['data'];

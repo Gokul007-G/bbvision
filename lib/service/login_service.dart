@@ -19,6 +19,8 @@ class LoginService {
         final Map<String, dynamic> data = rawData is String
             ? jsonDecode(rawData)
             : rawData;
+
+        print(data);
         if (data['status'] == 'success') {
           return LoginModel.fromJson(data);
         } else {

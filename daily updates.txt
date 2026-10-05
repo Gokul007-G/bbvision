@@ -257,3 +257,20 @@ CREATE TABLE employee_locations (
     INDEX idx_employee_id (employee_id),
     INDEX idx_created_at (created_at)
 );
+
+
+28/08/26
+9-10Am : update the query and solve the issue.
+10-11Am :creating the project flow and explain the app.
+11-12Am : .
+12-1Pm: .
+1-2Pm: Lunch break.
+2-3Pm: show the team tasks to admin.
+3-4Pm : flutter package issue to clear.
+4-5Pm : rewrite the code structure.
+5-6Pm : testing full app in admin login , improve the ui.
+
+ALTER TABLE `bb_attendance` ADD `latitude` DECIMAL(10,7) NOT NULL AFTER `working_days`, ADD `longitude` DECIMAL(10,7) NOT NULL AFTER `latitude`, ADD `area` VARCHAR(250) NOT NULL AFTER `longitude`, ADD `city` VARCHAR(250) NOT NULL AFTER `area`, ADD `hr_status` INT NOT NULL COMMENT 'default = 0,\r\nstatus = 1 hr to notify employee' AFTER `city`, ADD `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `hr_status`;
+
+ALTER TABLE `bb_attendance` CHANGE `work_hours` `work_hours` DECIMAL(2,1) NOT NULL;
+

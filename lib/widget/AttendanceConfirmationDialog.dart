@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 class AttendanceConfirmationDialog extends StatelessWidget {
   final int status;
 
-  const AttendanceConfirmationDialog({
-    super.key,
-    required this.status,
-  });
+  const AttendanceConfirmationDialog({super.key, required this.status});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +15,8 @@ class AttendanceConfirmationDialog extends StatelessWidget {
 
     switch (status) {
       case 0:
-        title = "Start Your Attendance";
+        title = "Punch In";
+        // title = "Start Your Attendance";
         message =
             "You are about to check in for today.\n\n"
             "Your current location will be used to record your attendance.";
@@ -28,7 +26,7 @@ class AttendanceConfirmationDialog extends StatelessWidget {
         break;
 
       case 1:
-        title = "End Your Attendance";
+        title = "Punch Out";
         message =
             "You are about to check out for today.\n\n"
             "Your current location will be used to record your logout time.";
@@ -57,34 +55,20 @@ class AttendanceConfirmationDialog extends StatelessWidget {
     }
 
     return AlertDialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       title: Row(
         children: [
-          Icon(
-            icon,
-            color: iconColor,
-            size: 30,
-          ),
+          Icon(icon, color: iconColor, size: 30),
           const SizedBox(width: 10),
           Expanded(
             child: Text(
               title,
-              style: const TextStyle(
-                fontWeight: FontWeight.bold,
-              ),
+              style: const TextStyle(fontWeight: FontWeight.bold),
             ),
           ),
         ],
       ),
-      content: Text(
-        message,
-        style: const TextStyle(
-          fontSize: 15,
-          height: 1.5,
-        ),
-      ),
+      content: Text(message, style: const TextStyle(fontSize: 15, height: 1.5)),
       actions: [
         if (status != 2)
           TextButton(
@@ -96,10 +80,7 @@ class AttendanceConfirmationDialog extends StatelessWidget {
 
         ElevatedButton.icon(
           onPressed: () {
-            Navigator.pop(
-              context,
-              status == 2 ? false : true,
-            );
+            Navigator.pop(context, status == 2 ? false : true);
           },
           icon: Icon(icon),
           label: Text(buttonText),

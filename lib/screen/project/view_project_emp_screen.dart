@@ -426,9 +426,15 @@ class ViewProjectEmpScreen extends StatelessWidget {
 
   Widget _taskTile(ProjectModelEmp task) {
     final isCompleted = task.status == 1;
-
+    final user = controller.user.value;
+    var groupCode = "";
+    if (user != null) {
+      groupCode = user.userGroupCode;
+    }
     return GestureDetector(
       onTap: isCompleted
+          ? null
+          : (groupCode == "R003" || groupCode == "")
           ? null
           : () {
               Get.dialog(

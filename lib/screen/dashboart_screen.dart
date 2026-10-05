@@ -1,5 +1,7 @@
 import 'package:bbvision/controller/location_controller.dart';
+import 'package:bbvision/screen/chat/chat_employee_page.dart';
 import 'package:bbvision/screen/location/view_location_screen.dart';
+import 'package:bbvision/screen/project/project_assignment_screen.dart';
 import 'package:bbvision/screen/project/view_project_emp_screen.dart';
 import 'package:bbvision/screen/show_location.dart';
 import 'package:bbvision/widget/AttendanceConfirmationDialog.dart';
@@ -212,16 +214,25 @@ class DashboardScreen extends StatelessWidget {
                   icon: Icons.assignment_ind,
                   title: "Project Assignment",
                   color: AppColors.appBar,
-                  onTap: () => Get.to(() => ViewProjectEmpScreen()),
+                  onTap: () {
+                    if (user.userGroupCode != "R003") {
+                      Get.to(() => ViewProjectEmpScreen());
+                    } else {
+                      Get.to(() => ProjectAssignmentScreen());
+                    }
+                  },
                 ),
                 _actionCard(
                   icon: Icons.fingerprint,
                   title: "Mark Attendance",
                   color: AppColors.appBar,
-                  onTap: () => Get.to(
-                    () => ViewLocationScreen(
-                    ),
-                  ),
+                  onTap: () => Get.to(() => ViewLocationScreen()),
+                ),
+                _actionCard(
+                  icon: Icons.chat,
+                  title: "Chat",
+                  color: AppColors.appBar,
+                  onTap: () => Get.to(() => ChatEmployeePage()),
                 ),
               ],
             ),
@@ -428,13 +439,18 @@ class DashboardScreen extends StatelessWidget {
               GestureDetector(
                 onTap: () async {
                   final locationController = Get.put(LocationController());
-
+                  print('----------------------------');
+                  print('--------------this is attendances--------------');
                   try {
                     final response = await locationController.getAttendancesCnt(
                       user.userName,
                     );
+                    print('---------$response-----------');
                     final int statusLog = response?["log"] ?? 0;
                     final int tableId = response?["tableId"] ?? 0;
+
+                    print(statusLog);
+                    print(tableId);
                     if (context.mounted) {
                       await _showLocationConfirmation(
                         context,
@@ -468,7 +484,6 @@ class DashboardScreen extends StatelessWidget {
       context: context,
       builder: (_) => AttendanceConfirmationDialog(status: statusLog!),
     );
-
     if (confirm != true) return;
 
     _showLocationLoading(context);
